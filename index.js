@@ -61,17 +61,15 @@
             offsetLeft = index * contentWidth;
         }
         isRoll = true;
-
         addClass(scrollConDom, "active");
-
         scrollConDom.style.transform = "translate3d(-" + offsetLeft + "px, 0px, 0px)";
         scrollConDom.style.mozTransform = "translate3d(-" + offsetLeft + "px, 0px, 0px)";
         scrollConDom.style.webkitTransform = "translate3d(-" + offsetLeft + "px, 0px, 0px)";
 
-        removeClass(items[itemSlider], "active");
+        removeClass(items[itemSlider], "active");// 移除当前激活的滑块的active样式
         itemSlider = index;
-        addClass(items[index], "active");
-        activeLi(index);
+        addClass(items[index], "active");// 像目标滑块的添加active样式
+        activeLi(index);//改变小圆点激活状态
         setTimeout(function () {
             isRoll = false;
             removeClass(scrollConDom, "active");
