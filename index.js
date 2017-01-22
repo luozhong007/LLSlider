@@ -17,24 +17,29 @@
 
     scrollConDom.style.width = itemsLen * contentWidth + "px";
 
-    //向元素添加class
-    var addClass = function (dom, className) {
-        if (dom.className.indexOf(className) >= 0) {
-            return
-        }
-        dom.className = dom.className + " " + className;
-    };
-
-    //删除指定class
-    var removeClass = function (dom, className) {
-        if (dom.className.indexOf(className) >= 0) {
-            dom.className = dom.className.replace(className, "");
-        }
+    //获取样式名称正则
+    var getClassName = function(className){
+        return new RegExp('(\\s|^)' + className + '(\\s|$)');
     };
 
     //判断元素是否含有某个class
     var hasClass = function (dom, className) {
-        return dom.className.indexOf(className) >= 0;
+        return dom.className.match(getClassName(className));
+    };
+
+    //向元素添加class
+    var addClass = function (dom, className) {
+        if (hasClass(dom, className)) {
+            return
+        }
+        dom.className += " " + className;
+    };
+
+    //删除指定class
+    var removeClass = function (dom, className) {
+        if (hasClass(dom, className)) {
+            dom.className = dom.className.replace(getClassName(className), "");
+        }
     };
 
     //判断移动设备设备
@@ -148,9 +153,9 @@
             } else {
                 m_roll_x = e.clientX - m_start_x; //鼠标移动总距离和起始点差值为鼠标移动的距离
             }
-            if((m_roll_x > 0 && activeSlider == 0) || m_roll_x < 0 && activeSlider == itemsLen - 1){//在最边缘拖动时距离变小
+            if ((m_roll_x > 0 && activeSlider == 0) || m_roll_x < 0 && activeSlider == itemsLen - 1) {//在最边缘拖动时距离变小
                 left = slider_x + m_roll_x * 0.3;
-            }else{
+            } else {
                 left = slider_x + m_roll_x;
             }
             scrollConDom.style.transform = "translate3d(" + left + "px, 0px, 0px)";
