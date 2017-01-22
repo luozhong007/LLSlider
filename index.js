@@ -181,7 +181,7 @@
         };
 
         if (versions.mobile) {//如果是移动端 则监听触摸事件
-            sliderUlDom.style.display = "none";
+            addClass(sliderUlDom,"mobile");
             dom.addEventListener('touchstart', this.optionDown);
             dom.addEventListener('touchmove', this.optionMove);
             dom.addEventListener('touchend', this.optionUp);
