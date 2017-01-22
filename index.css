@@ -18,7 +18,7 @@ body {
 
 .slider-content {
     width: 90%;
-    margin: 5% auto;
+    margin: 0 auto;
     overflow: hidden;
     position: relative;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
