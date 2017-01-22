@@ -163,13 +163,13 @@
             isMousedown = false;
             var s_index = activeSlider;
             if (m_roll_x < 0) {//向左滑动
-                if (itemSlider == itemsLen - 1 || Math.abs(m_roll_x) < contentWidth / 2) {
+                if (itemSlider == itemsLen - 1 || Math.abs(m_roll_x) < contentWidth / 3) {
                     s_index = itemSlider
                 } else {
                     s_index = activeSlider + 1
                 }
             } else if (m_roll_x > 0) {//向右滑动
-                if (itemSlider == 0 || Math.abs(m_roll_x) < contentWidth / 2) {
+                if (itemSlider == 0 || Math.abs(m_roll_x) < contentWidth / 3) {
                     s_index = itemSlider
                 } else {
                     s_index = activeSlider - 1;
