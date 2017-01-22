@@ -148,7 +148,11 @@
             } else {
                 m_roll_x = e.clientX - m_start_x; //鼠标移动总距离和起始点差值为鼠标移动的距离
             }
-            left = slider_x + m_roll_x;
+            if((m_roll_x > 0 && activeSlider == 0) || m_roll_x < 0 && activeSlider == itemsLen - 1){//在最边缘拖动时距离变小
+                left = slider_x + m_roll_x * 0.3;
+            }else{
+                left = slider_x + m_roll_x;
+            }
             scrollConDom.style.transform = "translate3d(" + left + "px, 0px, 0px)";
             scrollConDom.style.mozTransform = "translate3d(" + left + "px, 0px, 0px)";
             scrollConDom.style.webkitTransform = "translate3d(" + left + "px, 0px, 0px)";
@@ -181,7 +185,7 @@
         };
 
         if (versions.mobile) {//如果是移动端 则监听触摸事件
-            addClass(sliderUlDom,"mobile");
+            addClass(sliderUlDom, "mobile");
             dom.addEventListener('touchstart', this.optionDown);
             dom.addEventListener('touchmove', this.optionMove);
             dom.addEventListener('touchend', this.optionUp);
