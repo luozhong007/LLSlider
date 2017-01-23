@@ -2,7 +2,6 @@
  * Created by luozhong on 17/1/18.
  */
 (function () {
-    "use strict";
 
     var sliderConDom = document.getElementById("sliderCon"),
         scrollConDom = document.getElementById("scrollContent"),
@@ -19,31 +18,6 @@
 
     scrollConDom.style.width = itemsLen * contentWidth + "px";
 
-    //获取样式名称正则
-    var getClassName = function (className) {
-        return new RegExp('(\\s|^)' + className + '(\\s|$)');
-    };
-
-    //判断元素是否含有某个class
-    var hasClass = function (dom, className) {
-        return dom.className.match(getClassName(className));
-    };
-
-    //向元素添加class
-    var addClass = function (dom, className) {
-        if (hasClass(dom, className)) {
-            return
-        }
-        dom.className += " " + className;
-    };
-
-    //删除指定class
-    var removeClass = function (dom, className) {
-        if (hasClass(dom, className)) {
-            dom.className = dom.className.replace(getClassName(className), "");
-        }
-    };
-
     //判断移动设备设备
     var versions = function () {
         var u = navigator.userAgent;
@@ -52,17 +26,44 @@
         };
     }();
 
+    drag(scrollConDom);
+
+    //获取样式名称正则
+    function getClassName(className) {
+        return new RegExp('(\\s|^)' + className + '(\\s|$)');
+    }
+
+    //判断元素是否含有某个class
+    function hasClass(dom, className) {
+        return dom.className.match(getClassName(className));
+    }
+
+    //向元素添加class
+    function addClass(dom, className) {
+        if (hasClass(dom, className)) {
+            return
+        }
+        dom.className += " " + className;
+    }
+
+    //删除指定class
+    function removeClass(dom, className) {
+        if (hasClass(dom, className)) {
+            dom.className = dom.className.replace(getClassName(className), "");
+        }
+    }
+
     //激活小圆点
-    var activeLi = function (index) {
+    function activeLi(index) {
         //移除旧的激活项
         removeClass(sliderLiDom[activeSlider], "active");
         activeSlider = index;
         //设置当前激活选项
         addClass(sliderLiDom[index], "active");
-    };
+    }
 
     //滑动到指定的滑块
-    var sliderScroll = function (index) {
+    function sliderScroll(index) {
         var offsetLeft = 0;
         if (index) {
             offsetLeft = index * contentWidth;
@@ -83,7 +84,7 @@
         }, timer);
 
         slider_x = 0 - offsetLeft;
-    };
+    }
 
     //点击小圆点
     var clickItem = function (index) {
@@ -99,7 +100,7 @@
     };
 
     //设置小圆点
-    var setUl = function (index) {
+    function setUl(index) {
         var li = document.createElement("li");
         if (index == 0) {
             li.className = "slider-ull-li active";
@@ -112,9 +113,9 @@
         if (!sliderLiDom) {
             sliderLiDom = document.getElementsByClassName("slider-ull-li");//小圆点
         }
-    };
+    }
 
-    //初始化silder元素
+    //初始化slider元素
     for (var i = 0; i < itemsLen; i++) {
         items[i].style.width = contentWidth + "px";
         setUl(i);
@@ -123,7 +124,7 @@
         }
     }
 
-    var drag = function (dom) {
+    function drag(dom) {
         if (!dom) {
             return;
         }
@@ -132,8 +133,6 @@
             m_start_x = 0,//鼠标起始位置
             m_roll_x = 0,//滑块滑动的距离
             left = 0;
-
-        console.log(this);
         //按下
         var optionDown = function (e) {
             e.stopPropagation();
@@ -166,6 +165,7 @@
             scrollConDom.style.mozTransform = "translate3d(" + left + "px, 0px, 0px)";
             scrollConDom.style.webkitTransform = "translate3d(" + left + "px, 0px, 0px)";
         };
+
         //抬起
         var optionUp = function (e) {
             if (!isMousedown) {
@@ -205,7 +205,5 @@
             //鼠标移动
             dom.onmousemove = optionMove;
         }
-    };
-
-    drag(scrollConDom);
+    }
 })();
