@@ -2,6 +2,8 @@
  * Created by luozhong on 17/1/18.
  */
 (function () {
+    "use strict";
+
     var sliderConDom = document.getElementById("sliderCon"),
         scrollConDom = document.getElementById("scrollContent"),
         sliderUlDom = document.getElementById("sliderUl"),//小圆点容器
@@ -18,7 +20,7 @@
     scrollConDom.style.width = itemsLen * contentWidth + "px";
 
     //获取样式名称正则
-    var getClassName = function(className){
+    var getClassName = function (className) {
         return new RegExp('(\\s|^)' + className + '(\\s|$)');
     };
 
@@ -130,8 +132,10 @@
             m_start_x = 0,//鼠标起始位置
             m_roll_x = 0,//滑块滑动的距离
             left = 0;
+
+        console.log(this);
         //按下
-        this.optionDown = function (e) {
+        var optionDown = function (e) {
             e.stopPropagation();
             scrollConDom.style.cursor = "-webkit-grabbing";
             isMousedown = true;
@@ -144,7 +148,7 @@
         };
 
         //移动
-        this.optionMove = function (e) {
+        var optionMove = function (e) {
             if (!isMousedown) {
                 return;
             }
@@ -163,7 +167,7 @@
             scrollConDom.style.webkitTransform = "translate3d(" + left + "px, 0px, 0px)";
         };
         //抬起
-        this.optionUp = function (e) {
+        var optionUp = function (e) {
             if (!isMousedown) {
                 return;
             }
@@ -191,15 +195,15 @@
 
         if (versions.mobile) {//如果是移动端 则监听触摸事件
             addClass(sliderUlDom, "mobile");
-            dom.addEventListener('touchstart', this.optionDown);
-            dom.addEventListener('touchmove', this.optionMove);
-            dom.addEventListener('touchend', this.optionUp);
+            dom.addEventListener('touchstart', optionDown);
+            dom.addEventListener('touchmove', optionMove);
+            dom.addEventListener('touchend', optionUp);
         } else {
-            dom.onmousedown = this.optionDown;
+            dom.onmousedown = optionDown;
             //鼠标弹起
-            document.onmouseup = this.optionUp;
+            document.onmouseup = optionUp;
             //鼠标移动
-            dom.onmousemove = this.optionMove;
+            dom.onmousemove = optionMove;
         }
     };
 
