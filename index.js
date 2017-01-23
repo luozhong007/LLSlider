@@ -18,7 +18,6 @@
         isRoll = false;//是否在执行动画
 
     scrollConDom.style.width = itemsLen * contentWidth + "px";
-
     //判断移动设备设备
     var versions = function () {
         var u = navigator.userAgent;
@@ -88,7 +87,7 @@
     }
 
     //点击小圆点
-    var clickItem = function (index) {
+    function clickItem(index) {
         if (isRoll) {//如果当前动画正在执行 则不做任何操作
             return
         }
@@ -98,7 +97,7 @@
             return
         }
         sliderScroll(index);//调用滑动方法
-    };
+    }
 
     //设置小圆点
     function setUl(index) {
@@ -116,19 +115,23 @@
         }
     }
 
-    //初始化slider元素
-    for (var i = 0; i < itemsLen; i++) {
-        items[i].style.width = contentWidth + "px";
-        setUl(i);
-        if (i == 0) {
-            items[0].className = items[0].className + " active"
+    function initSlider(){
+        for (var i = 0; i < itemsLen; i++) {
+            items[i].style.width = contentWidth + "px";
+            setUl(i);
+            if (i == 0) {
+                items[0].className = items[0].className + " active";
+            }
         }
     }
+
+    //初始化slider元素
 
     function drag(dom) {
         if (!dom) {
             return;
         }
+        initSlider();
 
         var isMousedown = false,//鼠标是否点击
             m_start_x = 0,//鼠标起始位置
@@ -201,10 +204,11 @@
             dom.addEventListener('touchend', optionUp);
         } else {
             dom.onmousedown = optionDown;
-            //鼠标弹起
             document.onmouseup = optionUp;
-            //鼠标移动
             dom.onmousemove = optionMove;
         }
+
+        console.log(this);
+        console.log(document);
     }
 })();
