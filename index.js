@@ -2,6 +2,7 @@
  * Created by luozhong on 17/1/18.
  */
 (function () {
+    "use strict";
 
     var sliderConDom = document.getElementById("sliderCon"),
         scrollConDom = document.getElementById("scrollContent"),
@@ -139,7 +140,7 @@
             scrollConDom.style.cursor = "-webkit-grabbing";
             isMousedown = true;
             if (versions.mobile) {
-                e.targetTouches = undefined;
+                /** @namespace e.targetTouches */
                 m_start_x = e.targetTouches[0].clientX;
             } else {
                 m_start_x = e.clientX;
